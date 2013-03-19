@@ -1,15 +1,16 @@
 class PostsController < ApplicationController
+  before_filter :find_board, :only => [:index, :show]
   # GET /posts
   # GET /posts.json
   def index
-    @board = Board.find(params[:board_id])
+    
     redirect_to board_path(@board)
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.find(params[:id])
 
     respond_to do |format|
@@ -21,7 +22,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.build
 
     respond_to do |format|
@@ -32,15 +33,16 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.find(params[:id])
   end
 
   # POST /posts
   # POST /posts.json
   def create
-    @board = Board.find(params[:board_id])
-    @post = @board.posts.build(params[:post])
+    
+    @post.board.posts.build(params[:post])
+    @post.save!
 
     respond_to do |format|
       if @post.save
@@ -57,12 +59,13 @@ class PostsController < ApplicationController
   # PUT /posts/1
   # PUT /posts/1.json
   def update
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.find(params[:id])
 
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        format.html { redirect_to board_post_path(@board,@post), notice: 'Post was successfully updated.' }
+        format.html { redirect_to board_post_path(@board,@post), 
+          notice: 'Post was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -74,7 +77,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.find(params[:id])
     @post.destroy
 
