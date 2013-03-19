@@ -6,7 +6,4 @@ class AddBoardIdToPost < ActiveRecord::Migration
   def self.down
   	remove_column :posts, :board_id
   end
-  
-  def change
-  end
 end

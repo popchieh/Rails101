@@ -22,7 +22,7 @@ class PostsController < ApplicationController
   # GET /posts/new.json
   def new
     @board = Board.find(params[:board_id])
-    @post = @board.posts.find(params[:id])
+    @post = @board.posts.build
 
     respond_to do |format|
       format.html # new.html.erb
