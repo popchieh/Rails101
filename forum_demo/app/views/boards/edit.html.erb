@@ -1,6 +1,7 @@
 <h1>Editing board</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @board %> |
-<%= link_to 'Back', boards_path %>
+<%= form_for @post, :url => board_post_path(@board,@post) do |f| %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+<% end %>
+<%= link_to 'Show', board_post_path(@board,@post) %> |
+<%= link_to 'Back', board_posts_path(@board) %>
