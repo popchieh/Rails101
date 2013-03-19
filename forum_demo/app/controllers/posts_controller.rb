@@ -1,15 +1,10 @@
 class PostsController < ApplicationController
-  # GET /posts
-  # GET /posts.json
-  def index
-    @board = Board.find(params[:board_id])
-    redirect_to board_path(@board)
-  end
+  before_filter :find_board
 
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.find(params[:id])
 
     respond_to do |format|
@@ -21,7 +16,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.build
 
     respond_to do |format|
@@ -32,14 +27,14 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.find(params[:id])
   end
 
   # POST /posts
   # POST /posts.json
   def create
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.build(params[:post])
 
     respond_to do |format|
@@ -57,7 +52,7 @@ class PostsController < ApplicationController
   # PUT /posts/1
   # PUT /posts/1.json
   def update
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.find(params[:id])
 
     respond_to do |format|
@@ -74,7 +69,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    @board = Board.find(params[:board_id])
+    
     @post = @board.posts.find(params[:id])
     @post.destroy
 
@@ -83,4 +78,9 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  protected
+    def find_board
+      @board = Board.find(params[:board_id])
+    end
 end
