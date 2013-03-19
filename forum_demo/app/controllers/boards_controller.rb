@@ -15,6 +15,8 @@ class BoardsController < ApplicationController
   def show
     @board = Board.find(params[:id])
 
+    @posts = Post.all
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @board }
