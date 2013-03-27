@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  def is_admin?
+  	is_admin
+  end
+  
   has_many :posts
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
