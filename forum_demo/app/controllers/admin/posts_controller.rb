@@ -21,7 +21,7 @@ class Admin::PostsController < ApplicationController
         format.html { redirect_to board_post_path(@board,@post), notice: 'Post was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "A-edit" }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
